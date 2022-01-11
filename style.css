@@ -4,7 +4,9 @@
 
 body {
    margin: 0;
+   padding: 10px;
    height: 100vh;
+   min-width: fit-content;
    display: flex;
    flex-direction: column;
    justify-content: center;
@@ -19,6 +21,7 @@ span {
 
 header {
    width: 100%;
+   max-width: 600px;
    display: flex;
    flex-direction: column;
    justify-content: center;
@@ -30,6 +33,7 @@ header>section {
    display: flex;
    justify-content: space-around;
    align-items: baseline;
+   gap: 5px;
 }
 
 header>section>article {
@@ -63,6 +67,7 @@ h2 {
 h3 {
    text-transform: uppercase;
    color: darkgreen;
+   white-space: nowrap;
 }
 
 button {
@@ -88,24 +93,34 @@ button {
    z-index: 99;
    background-color: hsla(0, 0%, 0%, 0.95);
    display: flex;
+   justify-content: center;
+   align-items: center;
+   padding: 10px;
+}
+
+.form-modal>.wrapper {
+   width: 100%;
+   max-width: 600px;
+   min-width: fit-content;
+   display: flex;
    flex-direction: column;
    justify-content: center;
+   align-items: center;
    gap: 5px;
-   padding: 30px 50px;
    color: bisque;
 }
 
-form>h3 {
-    color: bisque;
+.form-modal h3 {
+   color: bisque;
 }
 
-.form-modal>section {
+.form-modal>.wrapper>section {
    display: grid;
    grid-template-columns: auto 1fr;
    gap: 5px;
 }
 
-.form-modal>button {
+.form-modal>.wrapper>button {
    font-size: 1rem;
    padding: 3px 6px;
 }
@@ -126,13 +141,13 @@ form>h3 {
 }
 
 .reset {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.5rem;
-    padding: 0;
-    border: none;
-    outline: none;
-    background: none;
-    cursor: pointer;
+   position: absolute;
+   top: 10px;
+   right: 10px;
+   font-size: 1.5rem;
+   padding: 2px;
+   border: none;
+   outline: none;
+   background: none;
+   cursor: pointer;
 }

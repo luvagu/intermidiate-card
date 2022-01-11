@@ -47,26 +47,30 @@
     <button type="button" data-deal>Carta</button>
 
     <form class="form-modal" data-init-game>
-        <h3>Para que es el desafío?</h3>
-        <section>
-            <label for="lose">El reto:</label>
-            <div class="grid">
-                <input type="text" name="activity-txt" id="lose" placeholder="Ej: Tomas, Besas, Gritas, Bailas" required>
-                <select name="activity-icon">
-                    <option value="🍻" selected>🍻</option>
-                    <option value="🍔">🍔</option>
-                    <option value="⚽">⚽</option>
-                    <option value="🕺">🕺</option>
-                    <option value="🧑‍🎤">🧑‍🎤</option>
-                    <option value="👩‍❤️‍💋‍👨">👩‍❤️‍💋‍👨</option>
-                    <option value="🛏️">🛏️</option>
-                    <option value="❓">❓</option>
-                </select>
-            </div>
-            <label for="win">Jugadores:</label>
-            <input type="text" name="players" id="win" placeholder="Ej: Luis,Carlos,Vane (separados por coma)" required>
-        </section>
-        <button type="submit">Entrar</button>
+        <div class="wrapper">
+            <h3>Para que es el desafío?</h3>
+            <section>
+                <label for="lose">El reto:</label>
+                <div class="grid">
+                    <input type="text" name="activity-txt" id="lose" placeholder="Ej: Tomas, Besas, Gritas, Bailas"
+                        required>
+                    <select name="activity-icon">
+                        <option value="🍻" selected>🍻</option>
+                        <option value="🍔">🍔</option>
+                        <option value="⚽">⚽</option>
+                        <option value="🕺">🕺</option>
+                        <option value="🧑‍🎤">🧑‍🎤</option>
+                        <option value="👩‍❤️‍💋‍👨">👩‍❤️‍💋‍👨</option>
+                        <option value="🛏️">🛏️</option>
+                        <option value="❓">❓</option>
+                    </select>
+                </div>
+                <label for="win">Jugadores:</label>
+                <input type="text" name="players" id="win" placeholder="Ej: Luis,Carlos,Vane (separados por coma)"
+                    required>
+            </section>
+            <button type="submit">Entrar</button>
+        </div>
     </form>
 
     <button class="reset" type="button" disabled title="Resetear juego" data-reload-page>🔃</button>
