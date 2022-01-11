@@ -6,6 +6,7 @@ body {
    margin: 0;
    padding: 10px;
    height: 100vh;
+   overflow: hidden;
    min-width: fit-content;
    display: flex;
    flex-direction: column;
@@ -58,10 +59,12 @@ header span {
 
 h1> :first-child {
    font-size: 20vh;
+   white-space: nowrap;
 }
 
 h2 {
    font-size: 1.8rem;
+   white-space: nowrap;
 }
 
 h3 {
@@ -94,7 +97,6 @@ button {
    background-color: hsla(0, 0%, 0%, 0.95);
    display: flex;
    justify-content: center;
-   align-items: center;
    padding: 10px;
 }
 
@@ -105,7 +107,6 @@ button {
    display: flex;
    flex-direction: column;
    justify-content: center;
-   align-items: center;
    gap: 5px;
    color: bisque;
 }
