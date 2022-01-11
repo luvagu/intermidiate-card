@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta Intermedia Desafío (multijugador) | LuVaGu</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <h3>Carta Intermedia</h3>
+        <h2>Desafiando a: <span data-current-player>?</span></h2>
+        <section>
+            <article>
+                <h2>Carta 1</h2>
+                <div class="boxes">
+                    <span data-first>?</span>
+                    <span data-first-symbol>?</span>
+                </div>
+            </article>
+            <article>
+                <h2>Desafío</h2>
+                <div class="flex-col">
+                    <span data-challenge>?</span>
+                    <span data-challenge-icon>?</span>
+                </div>
+            </article>
+            <article>
+                <h2>Carta 2</h2>
+                <div class="boxes">
+                    <span data-second>?</span>
+                    <span data-second-symbol>?</span>
+                </div>
+            </article>
+        </section>
+    </header>
+
+    <h1 class="card">
+        <span data-card-value>?</span>
+        <span data-card-symbol>?</span>
+    </h1>
+
+    <button type="button" data-deal>Carta</button>
+
+    <form class="form-modal" data-init-game>
+        <h3>Para que es el desafío?</h3>
+        <section>
+            <label for="lose">El reto:</label>
+            <div class="grid">
+                <input type="text" name="activity-txt" id="lose" placeholder="Ej: Tomas, Besas, Gritas, Bailas" required>
+                <select name="activity-icon">
+                    <option value="🍻" selected>🍻</option>
+                    <option value="🍔">🍔</option>
+                    <option value="⚽">⚽</option>
+                    <option value="🕺">🕺</option>
+                    <option value="🧑‍🎤">🧑‍🎤</option>
+                    <option value="👩‍❤️‍💋‍👨">👩‍❤️‍💋‍👨</option>
+                    <option value="🛏️">🛏️</option>
+                    <option value="❓">❓</option>
+                </select>
+            </div>
+            <label for="win">Jugadores:</label>
+            <input type="text" name="players" id="win" placeholder="Ej: Luis,Carlos,Vane (separados por coma)" required>
+        </section>
+        <button type="submit">Entrar</button>
+    </form>
+
+    <button class="reset" type="button" disabled title="Resetear juego" data-reload-page>🔃</button>
+</body>
+
+</html>

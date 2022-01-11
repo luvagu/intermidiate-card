@@ -1,0 +1,138 @@
+* {
+   box-sizing: border-box;
+}
+
+body {
+   margin: 0;
+   height: 100vh;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+   color: darkblue;
+}
+
+span {
+   color: darkgreen;
+}
+
+header {
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+header>section {
+   width: 100%;
+   display: flex;
+   justify-content: space-around;
+   align-items: baseline;
+}
+
+header>section>article {
+   text-align: center;
+}
+
+header span {
+   font-size: 1.7rem;
+   font-weight: bold;
+}
+
+.card {
+   border: 1px solid darkgray;
+   border-radius: 5px;
+   padding: 8px 10px;
+   box-shadow: gray 0 1px 5px 1px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+h1> :first-child {
+   font-size: 20vh;
+}
+
+h2 {
+   font-size: 1.8rem;
+}
+
+h3 {
+   text-transform: uppercase;
+   color: darkgreen;
+}
+
+button {
+   font-size: 2.5rem;
+   padding: 5px 10px;
+   color: darkblue;
+}
+
+.boxes {
+   border: 1px solid darkgray;
+   border-radius: 3px;
+   padding: 8px 10px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.form-modal {
+   position: absolute;
+   overflow: hidden;
+   inset: 0;
+   z-index: 99;
+   background-color: hsla(0, 0%, 0%, 0.95);
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   gap: 5px;
+   padding: 30px 50px;
+   color: bisque;
+}
+
+form>h3 {
+    color: bisque;
+}
+
+.form-modal>section {
+   display: grid;
+   grid-template-columns: auto 1fr;
+   gap: 5px;
+}
+
+.form-modal>button {
+   font-size: 1rem;
+   padding: 3px 6px;
+}
+
+.flex-col {
+   display: flex;
+   flex-direction: column;
+}
+
+.grid {
+   display: grid;
+   grid-template-columns: 1fr auto;
+   gap: 5px;
+}
+
+.hidden {
+   display: none;
+}
+
+.reset {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+}
