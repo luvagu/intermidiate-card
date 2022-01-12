@@ -1,4 +1,4 @@
-const state = {
+const globalState = {
   cards: {
     1: 'A',
     2: 2,
@@ -22,11 +22,12 @@ const state = {
   ],
   passTxt: 'Pasas',
   passIcon: '🤞',
-  players: null,
+  players: [],
   currentPlayerIndex: 0,
   challengeTxt: '',
   challengeIcon: '',
   rounds: 0,
+  cardValues: [],
 }
 
 const currentPlayer = document.querySelector('[data-current-player]')
@@ -52,8 +53,8 @@ function withDealer() {
   let card1 = false,
     card2 = false,
     last = false,
-    end = false
-  count = 0
+    end = false,
+    count = 0
 
   const state = { card1, card2, last, end }
 
@@ -76,7 +77,8 @@ function withDealer() {
     }
 
     state.end = true
-    const lastState = { ...state }
+
+    const prevState = { ...state }
 
     state.card1 = false
     state.card2 = false
@@ -85,7 +87,7 @@ function withDealer() {
 
     count = 0
 
-    return lastState
+    return prevState
   }
 }
 
@@ -96,7 +98,7 @@ function resetInnerTextAndColor(...elems) {
   })
 }
 
-function setInnerTextWithColor(...elems) {
+function setInnerTextAndColorOptional(...elems) {
   elems.forEach(([elem, txt, color]) => {
     elem.innerText = txt
     if (color) {
@@ -105,32 +107,12 @@ function setInnerTextWithColor(...elems) {
   })
 }
 
-function arrayNextIndex(arr = [], currentIndex = 0) {
+function getNextArrayIndex(arr = [], currentIndex = 0) {
   let lastIndex = arr.length - 1
   return lastIndex && currentIndex < lastIndex ? currentIndex + 1 : 0
 }
 
-initGameForm.addEventListener('submit', (e) => {
-  e.preventDefault()
-
-  const [activityInput, iconsSelect, playersInput] = Array.from(
-    e.target.elements
-  ).filter(({ nodeName }) => nodeName === 'INPUT' || nodeName === 'SELECT')
-
-  state.challengeTxt = activityInput.value
-  state.challengeIcon = iconsSelect.value
-  state.players = playersInput.value.split(',').map((player) => player.trim())
-  state.rounds = state.players.length || 0
-
-  initGameForm.classList.add('hidden')
-  initGameForm.reset()
-  currentPlayer.innerText = state.players[state.currentPlayerIndex]
-})
-
-const deal = withDealer()
-let intigers = []
-
-const resetAllElems = () => {
+function resetAllElems() {
   resetInnerTextAndColor(
     first,
     firstSymbol,
@@ -144,12 +126,36 @@ const resetAllElems = () => {
   )
 }
 
+initGameForm.addEventListener('submit', (e) => {
+  e.preventDefault()
+
+  const { challengeTxt, challengeIcon, players } = Object.fromEntries(
+    new FormData(e.target).entries()
+  )
+
+  if (!challengeTxt || !challengeIcon || !players) return
+
+  globalState.challengeTxt = challengeTxt
+  globalState.challengeIcon = challengeIcon
+  globalState.players = players
+    .split(',')
+    .map((player) => player.trim())
+    .filter(Boolean)
+  globalState.rounds = globalState.players.length || 0
+
+  initGameForm.classList.add('hidden')
+  initGameForm.reset()
+  currentPlayer.innerText = globalState.players[globalState.currentPlayerIndex]
+})
+
+const deal = withDealer()
+
 dealButton.addEventListener('click', () => {
   const randomInt = getRandomIntInclusive(1, 13)
   const [symbol, color] =
-    state.symbols[Math.floor(Math.random() * state.symbols.length)]
-  const randomCardValue = state.cards[randomInt]
-  setInnerTextWithColor(
+    globalState.symbols[Math.floor(Math.random() * globalState.symbols.length)]
+  const randomCardValue = globalState.cards[randomInt]
+  setInnerTextAndColorOptional(
     [cardValue, randomCardValue, color],
     [cardSymbol, symbol, color]
   )
@@ -157,55 +163,56 @@ dealButton.addEventListener('click', () => {
   const { card1, card2, last, end } = deal()
 
   if (card1 && !card2 && !last && !end) {
-    setInnerTextWithColor(
+    setInnerTextAndColorOptional(
       [first, randomCardValue, color],
       [firstSymbol, symbol, color]
     )
-    intigers.push(randomInt)
+    globalState.cardValues.push(randomInt)
   }
 
   if (card1 && card2 && !last && !end) {
-    setInnerTextWithColor(
+    setInnerTextAndColorOptional(
       [second, randomCardValue, color],
       [secondSymbol, symbol, color]
     )
-    intigers.push(randomInt)
+    globalState.cardValues.push(randomInt)
   }
 
   if (card1 && card2 && last && !end) {
-    const [a, b] = intigers.sort((a, b) => a - b)
-    if (randomInt > a && randomInt < b) {
-      setInnerTextWithColor(
-        [challenge, state.passTxt, 'darkgreen'],
-        [challengeIcon, state.passIcon]
+    const [low, high] = globalState.cardValues.sort((a, b) => a - b)
+    if (randomInt > low && randomInt < high) {
+      setInnerTextAndColorOptional(
+        [challenge, globalState.passTxt, 'darkgreen'],
+        [challengeIcon, globalState.passIcon]
       )
     } else {
-      setInnerTextWithColor(
-        [challenge, state.challengeTxt, 'darkorange', true],
-        [challengeIcon, state.challengeIcon]
+      setInnerTextAndColorOptional(
+        [challenge, globalState.challengeTxt, 'darkorange', true],
+        [challengeIcon, globalState.challengeIcon]
       )
     }
-    intigers = []
+    globalState.cardValues = []
     dealButton.innerText = 'Siguiente'
   }
 
   if (end) {
     resetAllElems()
-    state.currentPlayerIndex = arrayNextIndex(
-      state.players,
-      state.currentPlayerIndex
+    globalState.currentPlayerIndex = getNextArrayIndex(
+      globalState.players,
+      globalState.currentPlayerIndex
     )
-    currentPlayer.innerText = state.players[state.currentPlayerIndex]
+    currentPlayer.innerText =
+      globalState.players[globalState.currentPlayerIndex]
     dealButton.innerText = 'Carta'
   }
 })
 
 reloadPage.addEventListener('click', () => {
-  state.players = null
-  state.currentPlayerIndex = 0
-  state.challengeTxt = ''
-  state.challengeIcon = ''
-  state.rounds = 0
+  globalState.players = null
+  globalState.currentPlayerIndex = 0
+  globalState.challengeTxt = ''
+  globalState.challengeIcon = ''
+  globalState.rounds = 0
   resetAllElems()
   initGameForm.classList.remove('hidden')
 })
